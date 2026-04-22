@@ -1,5 +1,7 @@
 package com.artere.e_commerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,11 +20,13 @@ public class Category {
     private String description;
     @ManyToOne
     @JoinColumn(name = "parent_id")
+    @JsonBackReference
     private Category parent;
 
     @OneToMany(mappedBy = "parent",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @JsonManagedReference
     private List<Category> subCategory = new ArrayList<>();
 
     @OneToMany(mappedBy = "category",
@@ -48,5 +52,17 @@ public class Category {
     public void removeProduct(Product product) {
         product.setCategory(null);
         products.remove(product);
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", parent=" + parent +
+                ", subCategory=" + subCategory +
+                ", products=" + products +
+                '}';
     }
 }
