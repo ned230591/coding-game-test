@@ -34,7 +34,7 @@ public class CategoryController {
         return service.findAll();
     }
 
-   //link c sub category to parent
+   //link  sub category to parent
     @PutMapping("/{id}/parent/{parentId}")
     public Category linkParent(@PathVariable Long id, @PathVariable Long parentId) {
         Category child = service.findById(id);

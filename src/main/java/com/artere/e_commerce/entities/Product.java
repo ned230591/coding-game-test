@@ -23,4 +23,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    public void setCategory(Category category) {
+        this.category = category;
+        if(category!=null)
+          category.getProducts().add(this);
+    }
 }
